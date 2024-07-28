@@ -1,0 +1,23 @@
+name: golang-jwt
+services:
+  database:
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: go_jwt
+      POSTGRES_USER: go_jwt
+      POSTGRES_PASSWORD: go_jwt
+    networks:
+      - postgres-network
+
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - postgres-network
+    ports:
+      - 8080:8080
+
+networks:
+  postgres-network:
