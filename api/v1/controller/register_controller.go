@@ -41,11 +41,11 @@ func (rc *RegisterController) Register(c *gin.Context) {
 		return
 	}
 
-	// accessToken, err := rc.RegisterUsecase.CreateAccessToken(&user, rc.Env.AccessTokenSecret, rc.Env.AccessTokenExpiryHour)
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
-	// 	return
-	// }
+	accessToken, err := rc.RegisterUsecase.CreateAccessToken(&user, rc.Env.AccessTokenSecret, rc.Env.AccessTokenExpiryHour)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
 
 	// refreshToken, err := rc.RegisterUsecase.CreateRefreshToken(&user, rc.Env.RefreshTokenSecret, rc.Env.RefreshTokenExpiryHour)
 	// if err != nil {
@@ -54,7 +54,7 @@ func (rc *RegisterController) Register(c *gin.Context) {
 	// }
 
 	signupResponse := domain.RegisterResponse{
-		AccessToken:  "",
+		AccessToken:  accessToken,
 		RefreshToken: "",
 	}
 
